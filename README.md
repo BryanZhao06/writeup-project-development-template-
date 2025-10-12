@@ -1,4 +1,4 @@
-# Tool / Skill Research Report
+# Docker Research Report
 
 ---
 
@@ -6,28 +6,20 @@
 
 | Field | Details |
 |-------|----------|
-| **Name** | _Your Full Name_ |
+| **Name** | Bryan Zhao |
 | **Project** | AI Knowledge Management Agent |
-| **Role** | _e.g., Backend Developer / NLP Researcher / DevOps Engineer_ |
-| **Tool / Skill** | _e.g., LangChain, FastAPI, ChromaDB, Docker, etc._ |
-| **Date** | _DD Month YYYY (e.g., 11 October 2025)_ |
-| **Links / Sources** | [Official Docs](https://www.langchain.com/) · [GitHub Repo](https://github.com/hwchase17/langchain) · [YouTube Tutorial](https://www.youtube.com/) |
+| **Role** | DevOps Engineer |
+| **Tool / Skill** | Docker |
+| **Date** | 11 October 2025 |
+| **Links / Sources** | [Official Docs](https://www.docker.com) · [GitHub Repo](https://github.com/docker/docs) · [YouTube Tutorial](https://www.youtube.com/watch?v=DQdB7wFEygo) |
 ---
 
-## 1. Overview  
-Provide a concise explanation of what this tool or skill is.  
-- What problem does it solve?  
-- What is its main purpose or use case?  
-- Who typically uses it?
+## 1. Overview
+Docker is an open-source software platform that helps developers and DevOps engineers build, share, and run application into standardized units called containers. It solves the problem of inconsistent environments ("But it works on my machine!")
 
-> _Example:_  
-> **LangChain** is a framework designed to help developers build applications powered by large language models (LLMs). It simplifies tasks such as prompt management, data retrieval, and orchestration of AI workflows.
-
----
 
 ## 2. Core Features & Capabilities  
 List and briefly describe the main features or components of the tool.
-
 > _Example:_  
 > - **Prompt Templates:** Reusable prompt structures for consistent LLM queries.  
 > - **Memory:** Enables context retention between user interactions.  
