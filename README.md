@@ -59,7 +59,7 @@ Docker version 28.3.0, build 38b7060
 4. Download the Dev Containers Extension on VSCode (Allows us to easily modify any container we want)
 6. Congrats! You now have Docker installed :D
 
-## Configuration Demo using Jupyter Notebook Image
+### Configuration Demo using Jupyter Notebook Image
 1. Open Docker Desktop and make sure that it says `"Engine running"` on the bottom left of the screen
 2. Go to [https://hub.docker.com]([https://hub.docker.com]) and type in the search bar "Jupyter Tensorflow"
 3. Copy the Docker Pull Command and paste the command into your terminal `docker pull jupyter/tensorflow-notebook`
@@ -79,13 +79,52 @@ docker run jupyter/tensorflow-notebook
 
 Oh no! Big error! How come?
 
-Reason: We are not communicating with our own operating system! The terminal says that the file is from a person named Jovyan who runs Linux, which is not who we are. These are the propertiees of our container, an isolated process on our computer, and because it is isolated, we get an error when we try to access it from the outside
+Reason: We are not communicating with our own operating system! The terminal says that the file is from a person named Jovyan, which is not who we are. These are the propertiees of our container, an isolated process on our computer, and because it is isolated, we get an error when we try to access it from the outside
 
 How do we solve it?
 8. Collapse our notebook with `Ctrl + C` and press the up key to fetch our most recent terminal command `docker run jupyter/tensorflow-notebook`
 9. In front of of our repository name, add -p (ports), choose a port from our host system (e.g. 8000), and then the port from our container (8888)
 ```powershell
-docker run -p 8000: 8888 jupyter/tensorflow-notebook
+docker run -p 8000:8888 jupyter/tensorflow-notebook
 ```
 10. Return to your browser and type `localhost:8000`
 11. Copy our token from Jupyter (the part in the URL after lab?token=) and paste it as our password
+12. Congratulations! You're in! :D
+
+#### How to set a password to access your notebook
+1. Go to [https://it-tools.tech]([https://it-tools.tech]) and find the "Docker run to Docker compose converter"
+2. Paste in your terminal command and download the docker-compose.yml file that is generated
+3. Open up the docker-compose.yml file in VSCode and add the following key to your file
+```docker-compose.yml
+environment:
+  - JUPYTER_TOKEN=[password of your choice]
+```
+4. Navigate to `localhost:8000` again and type in the password you set
+5. Congratulations! You set up the password! :D
+
+#### How to preserve our files through Drive Mounting (exposing a folder from our container to a folder on our host machine)
+1. In the same file, add the following key to your file
+```docker-compose.yml
+volumes:
+  - ./:/home/jovyan
+
+#How to read what this key means:
+"./": the current directory of our terminal (aka the folder where your compose file lives)
+":/home/jovyan": the directory of our container (Remember when we ran docker run without our port and we ran into an error because we weren't Jovyan? That's this directory!)
+```
+2. Move the file into the folder you wish to store it in and open up a terminal instance inside the current directory
+3. Run your container in Docker Compose by typing `docker compose up` in your terminal
+4. Congratulations! You now have docker-compose.yml
+
+#### How to install modules in your container:
+1. Go to your .yml file and replace your existing image with `build: ./` (specifies the location of the file)
+2. Go back to VSCode and create a new file called Dockerfile
+3. In Dockerfile, write the following:
+```Dockerfile
+FROM jupyter/tensorflow-notebook
+
+USER $NB_UID
+
+#"FROM": specifies the parent image on which our container is based
+#"USER $NB_UID": Jovyan, the username with the right permissions (usernames differ depending on the base image, replace $NB_UID with root in case you don't know the specific username)
+```
