@@ -24,8 +24,8 @@ Provide a concise explanation of what this tool or skill is.
 
 ## 2. Core Features & Capabilities  
 List and briefly describe the main features or components of the tool. 
-> **Docker Image**: Treated as a read-only template that contains all of the technologies we need, runtimes, and the tools needed to run our code
-> **Docker Container**: A runnable instance of the image that contains everything needed to run our application
+> **Docker Image**: Treated as a read-only template that contains all of the technologies we need, runtimes, and the tools needed to run our code (blueprint)
+> **Docker Container**: A runnable instance of the image that contains everything needed to run our application (the actual home)
 > **Docker Compose**: A tool for defining and running multi-container applications using a single YAML file to configure all the application's services 
 ---
 
@@ -45,7 +45,7 @@ Include terminal commands, environment variables, or configuration steps.
 
 1. Go to [https://www.docker.com](https://www.docker.com)
 2. Select "Download Docker Desktop" and download for the system you use (Mac/Windows/Linux)
-3. Download the Docker extension onto any IDE you use (e.g. VSCode)
+3. Download the Docker extension onto VSCode
 ```powershell
 # To check if you have Docker installed, type into your terminal
 docker --version
@@ -55,3 +55,37 @@ docker --version
 
 PS C:\Users\bryan> docker --version
 Docker version 28.3.0, build 38b7060
+```
+4. Download the Dev Containers Extension on VSCode (Allows us to easily modify any container we want)
+6. Congrats! You now have Docker installed :D
+
+## Configuration Demo using Jupyter Notebook Image
+1. Open Docker Desktop and make sure that it says `"Engine running"` on the bottom left of the screen
+2. Go to [https://hub.docker.com]([https://hub.docker.com]) and type in the search bar "Jupyter Tensorflow"
+3. Copy the Docker Pull Command and paste the command into your terminal `docker pull jupyter/tensorflow-notebook`
+```powershell
+#How to read what the terminal command means:
+docker pull jupyter/tensorflow-notebook
+
+"jupyter": the name of the community that maintains this image
+"tensorflow-notebook": the name of the image itself
+"jupyter/tensorflow-notebook": the name of the repository
+```
+5. Turn our Jupyter image into a container by typing the command "docker run", followed by the name of the repository
+```powershell
+docker run jupyter/tensorflow-notebook
+```
+7. Copy one of the URLS Jupyter provides us and paste it into our browser
+
+Oh no! Big error! How come?
+
+Reason: We are not communicating with our own operating system! The terminal says that the file is from a person named Jovyan who runs Linux, which is not who we are. These are the propertiees of our container, an isolated process on our computer, and because it is isolated, we get an error when we try to access it from the outside
+
+How do we solve it?
+8. Collapse our notebook with `Ctrl + C` and press the up key to fetch our most recent terminal command `docker run jupyter/tensorflow-notebook`
+9. In front of of our repository name, add -p (ports), choose a port from our host system (e.g. 8000), and then the port from our container (8888)
+```powershell
+docker run -p 8000: 8888 jupyter/tensorflow-notebook
+```
+10. Return to your browser and type `localhost:8000`
+11. Copy our token from Jupyter (the part in the URL after lab?token=) and paste it as our password
