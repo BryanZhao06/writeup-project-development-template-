@@ -125,6 +125,12 @@ FROM jupyter/tensorflow-notebook
 
 USER $NB_UID
 
+RUN pip install --upgrade pip && \
+    pip install "transformers[sentencepiece]" pysrt && \
+    pip install --index-url https://download.pytorch.org/whl/cpu torch && \
+    fix-permissions "/home/${NB_USER}"
+
 #"FROM": specifies the parent image on which our container is based
 #"USER $NB_UID": Jovyan, the username with the right permissions (usernames differ depending on the base image, replace $NB_UID with root in case you don't know the specific username)
+#"RUN": allows us to install our necessary modules
 ```
